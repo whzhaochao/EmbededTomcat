@@ -16,11 +16,14 @@ public class EmbededTomcat {
 	private static String PROJECT_NAME = "TomcatDemo";
 	private static String CONTEXT_PATH = "/";
 	private static String PROJECT_PATH = System.getProperty("user.dir");
-	private static String WEB_APP_PATH = PROJECT_PATH + File.separatorChar + "target" + File.separatorChar + PROJECT_NAME;
-	private static String CATALINA_HOME = PROJECT_PATH + File.separatorChar + "target" + File.separatorChar + PROJECT_NAME + File.separatorChar + "WEB-INF" + File.separatorChar + "classes" + File.separatorChar + "tomcat-home";
+	private static String WEB_APP_PATH = PROJECT_PATH + File.separatorChar + "target" + File.separatorChar
+			+ PROJECT_NAME;
+	private static String CATALINA_HOME = PROJECT_PATH + File.separatorChar + "target" + File.separatorChar
+			+ PROJECT_NAME + File.separatorChar + "WEB-INF" + File.separatorChar + "classes" + File.separatorChar
+			+ "tomcat-home";
 	private static String ENCODING = "utf-8";
 	private static Tomcat tomcat = new Tomcat();
-	private   int port;
+	private int port;
 
 	public EmbededTomcat(int port) {
 		this.port = port;
@@ -56,8 +59,21 @@ public class EmbededTomcat {
 
 	public static void main(String[] args) throws Exception {
 
-		EmbededTomcat embededTomcat = new EmbededTomcat(80);
-		embededTomcat.start();
-
+		if (args.length == 2) {
+			PROJECT_PATH = args[0];
+			int port = Integer.parseInt(args[1]);
+			WEB_APP_PATH = PROJECT_PATH  + File.separatorChar + PROJECT_NAME;
+			CATALINA_HOME = PROJECT_PATH  + File.separatorChar + PROJECT_NAME
+					+ File.separatorChar + "WEB-INF" + File.separatorChar + "classes" + File.separatorChar
+					+ "tomcat-home";
+			System.out.println("PROJECT_PATH:" + PROJECT_PATH + "\nport=" + port + "\nWEB_APP_PATH=" + WEB_APP_PATH
+					+ "\nCATALINA_HOME=" + CATALINA_HOME);
+			EmbededTomcat embededTomcat = new EmbededTomcat(port);
+			embededTomcat.start();
+		} else {
+			EmbededTomcat embededTomcat = new EmbededTomcat(80);
+			embededTomcat.start();
+		}
 	}
+
 }

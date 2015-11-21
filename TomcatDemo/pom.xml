@@ -62,17 +62,67 @@
 	</dependencies>
 	<build>
 		<finalName>TomcatDemo</finalName>
-		
-		 <plugins>    
-            <plugin>    
-                <groupId>org.apache.maven.plugins</groupId>    
-                <artifactId>maven-compiler-plugin</artifactId>    
-                <version>2.3</version>    
-                <configuration>    
-                    <source>1.8</source>    
-                    <target>1.8</target>    
-                </configuration>    
-            </plugin>    
-        </plugins>    
+
+		<plugins>
+			 <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-antrun-plugin</artifactId>
+              <version>1.8</version>
+              <executions>
+               <execution>
+                 <id>compile</id>
+                 <phase>compile</phase>
+                 <configuration>
+                   <target>
+                     <echo message="********************copy profile propertie file *************************"/>                                                                                                                                                                                    
+                     <copy  file="src/main/resources/cpappend.bat" tofile="${project.build.directory}/cpappend.bat" overwrite="true"/>
+                  	 <copy  file="src/main/resources/startServer.bat" tofile="${project.build.directory}/startServer.bat" overwrite="true"/>
+                  	 
+                  
+                   </target>
+                 </configuration>
+                 <goals>
+                   <goal>run</goal>
+                 </goals>
+               </execution>
+             </executions>
+         </plugin>
+			
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-antrun-plugin
+										</artifactId>
+										<versionRange>
+											[1.6,)
+										</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>
